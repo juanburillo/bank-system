@@ -50,7 +50,7 @@ public abstract class Account implements AccountOperations {
      */
     public void deposit(double amount, Currency currency) {
         try {
-            amountIsPositive(amount); // Checks if the amount is positive
+            checkAmountIsPositive(amount); // Checks if the amount is positive
             this.balance += amount;
             System.out.println("Successful deposit of " + amount + currency.toString());
         } catch (IllegalArgumentException e) {
@@ -65,8 +65,8 @@ public abstract class Account implements AccountOperations {
      */
     public void withdraw(double amount, Currency currency) {
         try {
-            amountIsPositive(amount); // Check if the amount is positive
-            hasSufficientFunds(amount); // Check if the account has sufficient funds to operate
+            checkAmountIsPositive(amount); // Check if the amount is positive
+            checkSufficientFunds(amount); // Check if the account has sufficient funds to operate
             this.balance -= amount;
             System.out.println("Successful withdrawal of " + amount + currency.toString());
         } catch (IllegalArgumentException | InsufficientFundsException e) {
@@ -82,8 +82,8 @@ public abstract class Account implements AccountOperations {
      */
     public void transfer(double amount, Currency currency, Account account) {
         try {
-            amountIsPositive(amount); // Check if the amount is positive
-            hasSufficientFunds(amount); // Check if the account has sufficient funds to operate
+            checkAmountIsPositive(amount); // Check if the amount is positive
+            checkSufficientFunds(amount); // Check if the account has sufficient funds to operate
             this.balance -= amount;
             account.deposit(amount, currency);
         } catch (IllegalArgumentException | InsufficientFundsException e) {
@@ -96,7 +96,7 @@ public abstract class Account implements AccountOperations {
      * @param amount The amount to be validated
      * @throws IllegalArgumentException Exception thrown if the amount is negative or 0
      */
-    public void amountIsPositive(double amount) throws IllegalArgumentException {
+    private void checkAmountIsPositive(double amount) throws IllegalArgumentException {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be greater than 0.");
         }
@@ -107,7 +107,7 @@ public abstract class Account implements AccountOperations {
      * @param amount The amount to be validated
      * @throws InsufficientFundsException Exception thrown if the amount is greater than the account balance
      */
-    public void hasSufficientFunds(double amount) throws InsufficientFundsException {
+    private void checkSufficientFunds(double amount) throws InsufficientFundsException {
         if (amount > balance) {
             throw new InsufficientFundsException("The operation cannot be completed because of insufficient funds.");
         }
@@ -116,7 +116,7 @@ public abstract class Account implements AccountOperations {
     /**
      * Prints a simple message displaying the balance for the account in the console
      */
-    public void queryBalance() {
+    public void printBalance() {
         System.out.println("The balance for this account is: " + this.balance + "€");
     }
 
