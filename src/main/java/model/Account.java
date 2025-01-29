@@ -6,30 +6,30 @@ import interfaces.AccountOperations;
 
 public abstract class Account implements AccountOperations {
 
-    private final long id; // Unique bank account identifier
-    private long clientId; // ID for the client who owns the account
-    private double balance; // Balance of the accounts
+    protected final long id; // Unique bank account identifier
+    protected String ownerName; // Name of the owner
+    protected double balance; // Balance of the accounts
 
-    public Account(long id, long clientId, double balance) {
+    public Account(long id, String ownerName, double balance) {
         this.id = id;
-        this.clientId = clientId;
+        this.ownerName = ownerName;
         this.balance = balance;
     }
 
-    public Account(long id, long clientId) {
-        this(id, clientId, 0);
+    public Account(long id, String ownerName) {
+        this(id, ownerName, 0);
     }
 
     public long getId() {
         return id;
     }
 
-    public long getClientId() {
-        return clientId;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public double getBalance() {
@@ -121,7 +121,7 @@ public abstract class Account implements AccountOperations {
      * Prints the bank account details in the console
      */
     public void printDetails() {
-        System.out.println("model.Account ID: " + this.id + ", Client ID: " + this.clientId + ", Balance: " + balance + "€");
+        System.out.println("model.Account ID: " + this.id + ", Owner: " + this.ownerName + ", Balance: " + balance + "€");
     }
 
 }
