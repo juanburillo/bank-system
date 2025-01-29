@@ -4,6 +4,9 @@ import enums.Currency;
 import exception.InsufficientFundsException;
 import interfaces.AccountOperations;
 
+/**
+ * Represents a bank account with deposit, withdrawal, and transferring functionality
+ */
 public abstract class Account implements AccountOperations {
 
     protected final long id; // Unique bank account identifier
