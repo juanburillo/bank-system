@@ -15,6 +15,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public Account(long id, long clientId) {
+        this(id, clientId, 0);
+    }
+
     public long getId() {
         return id;
     }
