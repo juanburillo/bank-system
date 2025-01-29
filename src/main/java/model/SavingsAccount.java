@@ -32,7 +32,8 @@ public class SavingsAccount extends Account {
     }
 
     /**
-     * Transfers a certain amount of money from the account to another one
+     * Transfers a certain amount of money from the account to another one if it does not exceed
+     * the transfer limit
      * @param amount The amount to be transferred
      * @param currency The currency
      * @param account The account to be deposited to
