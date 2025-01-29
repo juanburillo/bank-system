@@ -120,7 +120,7 @@ public abstract class Account implements AccountOperations {
      * Prints the bank account details in the console
      */
     public void printDetails() {
-        System.out.println("model.Account ID: " + this.id + ", Owner: " + this.ownerName + ", Balance: " + balance + "€");
+        System.out.println("Account ID: " + this.id + ", Owner: " + this.ownerName + ", Balance: " + balance + "€");
     }
 
 }
