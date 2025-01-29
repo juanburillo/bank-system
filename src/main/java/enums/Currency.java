@@ -1,3 +1,5 @@
+package enums;
+
 /**
  * The five most used currencies in the world
  */

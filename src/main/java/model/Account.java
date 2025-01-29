@@ -1,3 +1,8 @@
+package model;
+
+import enums.Currency;
+import exception.InsufficientFundsException;
+
 public class Account {
 
     private final long id; // Unique bank account identifier
@@ -111,7 +116,7 @@ public class Account {
      * Prints the bank account details in the console
      */
     public void printDetails() {
-        System.out.println("Account ID: " + this.id + ", Client ID: " + this.clientId + ", Balance: " + balance + "€");
+        System.out.println("model.Account ID: " + this.id + ", Client ID: " + this.clientId + ", Balance: " + balance + "€");
     }
 
 }
