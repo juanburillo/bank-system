@@ -65,4 +65,18 @@ public class Account {
         }
     }
 
+    /**
+     * Prints a simple message displaying the balance for the account in the console
+     */
+    public void queryBalance() {
+        System.out.println("The balance for this account is: " + this.balance + "€");
+    }
+
+    /**
+     * Prints the bank account details in the console
+     */
+    public void printDetails() {
+        System.out.println("Account ID: " + this.id + ", Client ID: " + this.clientId + ", Balance: " + balance + "€");
+    }
+
 }
