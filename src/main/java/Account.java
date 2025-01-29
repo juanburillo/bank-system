@@ -61,6 +61,12 @@ public class Account {
         }
     }
 
+    /**
+     * Transfers a certain amount of money from the account to another one
+     * @param amount The amount to be transferred
+     * @param currency The currency
+     * @param account The account to be deposited to
+     */
     public void transfer(double amount, Currency currency, Account account) {
         try {
             amountIsPositive(amount); // Check if the amount is positive
