@@ -18,8 +18,8 @@ public class SavingsAccount extends Account {
         this.interestRate = interestRate;
     }
 
-    public SavingsAccount(long id, String ownerName) {
-        super(id, ownerName, 0);
+    public SavingsAccount(long id, String ownerName, double balance) {
+        super(id, ownerName, balance);
         this.interestRate = 0.02;
     }
 

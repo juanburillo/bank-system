@@ -19,10 +19,6 @@ public abstract class Account implements AccountOperations {
         this.balance = balance;
     }
 
-    public Account(long id, String ownerName) {
-        this(id, ownerName, 0);
-    }
-
     public long getId() {
         return id;
     }

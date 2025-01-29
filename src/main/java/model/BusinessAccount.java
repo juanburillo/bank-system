@@ -18,11 +18,6 @@ public class BusinessAccount extends Account {
         this.transactionHistory = new HashMap<>();
     }
 
-    public BusinessAccount(long id, String ownerName) {
-        super(id, ownerName);
-        this.transactionHistory = new HashMap<>();
-    }
-
     public HashMap<Date, Double> getTransactionHistory() {
         return transactionHistory;
     }
