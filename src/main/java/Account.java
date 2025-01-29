@@ -1,29 +1,29 @@
 public class Account {
 
-    private long accountNumber;
-    private long ownerId;
-    private double balance;
+    private final long id; // Unique bank account identifier
+    private long clientId; // ID for the client who owns the account
+    private double balance; // Balance of the accounts
 
-    public Account(long accountNumber, long ownerId, double balance) {
-        this.accountNumber = accountNumber;
-        this.ownerId = ownerId;
+    public Account(long id, long clientId, double balance) {
+        this.id = id;
+        this.clientId = clientId;
         this.balance = balance;
     }
 
-    public long getAccountNumber() {
-        return accountNumber;
+    public long getId() {
+        return id;
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     public double getBalance() {
