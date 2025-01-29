@@ -8,8 +8,8 @@ import model.Account;
  */
 public interface AccountOperations {
 
-    public void deposit(double amount, Currency currency);
-    public void withdraw(double amount, Currency currency);
-    public void transfer(double amount, Currency currency, Account account);
+    public void deposit(double amount);
+    public void withdraw(double amount);
+    public void transfer(double amount, Account account);
 
 }

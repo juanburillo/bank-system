@@ -11,6 +11,8 @@ import java.util.HashMap;
  */
 public class BusinessAccount extends Account {
 
+    private final static Currency PREFERRED_CURRENCY = Currency.EUR;
+
     private HashMap<Date, Double> transactionHistory;
 
     public BusinessAccount(long id, String ownerName, double balance) {
@@ -30,12 +32,11 @@ public class BusinessAccount extends Account {
      * Transfers a certain amount of money from the account to another one and
      * saves it in the transfer history
      * @param amount The amount to be transferred
-     * @param currency The currency
      * @param account The account to be deposited to
      */
     @Override
-    public void transfer(double amount, Currency currency, Account account) {
-        super.transfer(amount, currency, account);
+    public void transfer(double amount, Account account) {
+        super.transfer(amount, account);
         transactionHistory.put(Date.from(Instant.now()), amount);
     }
 
@@ -44,7 +45,7 @@ public class BusinessAccount extends Account {
      */
     public void printTransferHistory() {
         for (Date date : transactionHistory.keySet()) {
-            System.out.println(date + " - Transfer of: " + transactionHistory.get(date) + "€");
+            System.out.println(date + " - Transfer of: " + transactionHistory.get(date) + PREFERRED_CURRENCY.toString());
         }
     }
 

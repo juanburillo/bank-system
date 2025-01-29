@@ -9,6 +9,8 @@ import interfaces.AccountOperations;
  */
 public abstract class Account implements AccountOperations {
 
+    private final static Currency PREFERRED_CURRENCY = Currency.EUR;
+
     protected final long id; // Unique bank account identifier
     protected String ownerName; // Name of the owner
     protected double balance; // Balance of the accounts
@@ -40,31 +42,29 @@ public abstract class Account implements AccountOperations {
     }
 
     /**
-     * Deposits an amount of money of the specified currency into the bank account
+     * Deposits an amount of money into the bank account
      * @param amount The amount of money to be deposited into the account
-     * @param currency The currency
      */
-    public void deposit(double amount, Currency currency) {
+    public void deposit(double amount) {
         try {
             checkAmountIsPositive(amount); // Checks if the amount is positive
             this.balance += amount;
-            System.out.println("Successful deposit of " + amount + currency.toString());
+            System.out.println("Successful deposit of " + amount + PREFERRED_CURRENCY.toString());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * Withdraws an amount of money of the specified currency from the bank account
+     * Withdraws an amount of money from the bank account
      * @param amount The amount of money to be withdrawn
-     * @param currency The currency
      */
-    public void withdraw(double amount, Currency currency) {
+    public void withdraw(double amount) {
         try {
             checkAmountIsPositive(amount); // Check if the amount is positive
             checkSufficientFunds(amount); // Check if the account has sufficient funds to operate
             this.balance -= amount;
-            System.out.println("Successful withdrawal of " + amount + currency.toString());
+            System.out.println("Successful withdrawal of " + amount + PREFERRED_CURRENCY.toString());
         } catch (IllegalArgumentException | InsufficientFundsException e) {
             System.out.println(e.getMessage());
         }
@@ -73,15 +73,14 @@ public abstract class Account implements AccountOperations {
     /**
      * Transfers a certain amount of money from the account to another one
      * @param amount The amount to be transferred
-     * @param currency The currency
      * @param account The account to be deposited to
      */
-    public void transfer(double amount, Currency currency, Account account) {
+    public void transfer(double amount, Account account) {
         try {
             checkAmountIsPositive(amount); // Check if the amount is positive
             checkSufficientFunds(amount); // Check if the account has sufficient funds to operate
             this.balance -= amount;
-            account.deposit(amount, currency);
+            account.deposit(amount);
         } catch (IllegalArgumentException | InsufficientFundsException e) {
             System.out.println(e.getMessage());
         }
@@ -113,14 +112,14 @@ public abstract class Account implements AccountOperations {
      * Prints a simple message displaying the balance for the account in the console
      */
     public void printBalance() {
-        System.out.println("The balance for this account is: " + this.balance + "€");
+        System.out.println("The balance for this account is: " + this.balance + PREFERRED_CURRENCY.toString());
     }
 
     /**
      * Prints the bank account details in the console
      */
     public void printDetails() {
-        System.out.println("Account ID: " + this.id + ", Owner: " + this.ownerName + ", Balance: " + balance + "€");
+        System.out.println("Account ID: " + this.id + ", Owner: " + this.ownerName + ", Balance: " + balance + PREFERRED_CURRENCY.toString());
     }
 
 }
