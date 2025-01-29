@@ -34,4 +34,19 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * Deposits an amount of money of the specified currency into the bank account
+     * @param amount The amount of money to be deposited into the account
+     * @param currency The currency
+     * @throws IllegalArgumentException Exception thrown if the user inputs a negative value or 0
+     */
+    public void deposit(double amount, Currency currency) throws IllegalArgumentException {
+        if (amount >= 0) {
+            this.balance += amount;
+            System.out.println("Successful deposit of " + amount + currency.toString());
+        } else {
+            throw new IllegalArgumentException("Deposit amount must be greater than 0.");
+        }
+    }
+
 }
