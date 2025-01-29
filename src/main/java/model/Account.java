@@ -2,8 +2,9 @@ package model;
 
 import enums.Currency;
 import exception.InsufficientFundsException;
+import interfaces.AccountOperations;
 
-public class Account {
+public abstract class Account implements AccountOperations {
 
     private final long id; // Unique bank account identifier
     private long clientId; // ID for the client who owns the account
