@@ -1,4 +1,3 @@
-import enums.Currency;
 import model.Account;
 import model.BusinessAccount;
 import model.SavingsAccount;
@@ -24,102 +23,34 @@ public class Main {
         ArrayList<SavingsAccount> savingsAccounts = new ArrayList<>();
         ArrayList<BusinessAccount> businessAccounts = new ArrayList<>();
 
-        // Variables for creating bank accounts
-        String name;
-        double balance;
+        // Flag variable for controlling the loop iterations
+        boolean systemActive = true;
 
-        boolean systemActive = true; // Flag variable for controlling the loop iterations
-        int option = 0; // Menu option
-
+        // Menu loop
         do {
-            printMenu();
-            option = inputInt("Enter your option: ");
+            printMenu(); // Prints the menu
+            int option = inputInt("Enter your option: ");
+
             switch (option) {
-                case 1: // Creating savings account
-                    name = inputString("Enter the owner name: ");
-                    balance = inputDouble("Enter the balance: ");
-
-                    SavingsAccount savingsAccount = new SavingsAccount(generateRandomId(), name, balance);
-                    savingsAccounts.add(savingsAccount); // Add the account to the list
-                    System.out.println();
-                    savingsAccount.printDetails(); // Print the account details
-                    System.out.println();
-                    break;
-                case 2: // Creating business account
-                    name = inputString("Enter the owner name: ");
-                    balance = inputDouble("Enter the balance: ");
-
-                    BusinessAccount businessAccount = new BusinessAccount(generateRandomId(), name, balance);
-                    businessAccounts.add(businessAccount); // Add the account to the list
-                    System.out.println();
-                    businessAccount.printDetails(); // Print the account details
-                    System.out.println();
-                    break;
-                case 3: // Display account details
-                    System.out.println();
-                    listAccounts(savingsAccounts, businessAccounts);
-                    System.out.println();
-                    break;
-                case 4: // Make a deposit
-                    if (savingsAccounts.isEmpty() && businessAccounts.isEmpty()) {
-                        System.out.println("There are no accounts in the system.");
-                    } else {
-                        System.out.println();
-                        makeDeposit(savingsAccounts, businessAccounts);
-                    }
-                    System.out.println();
-                    break;
-                case 5: // Make a withdrawal
-                    if (savingsAccounts.isEmpty() && businessAccounts.isEmpty()) {
-                        System.out.println("There are no accounts in the system.");
-                    } else {
-                        System.out.println();
-                        makeWithdrawal(savingsAccounts, businessAccounts);
-                    }
-                    System.out.println();
-                    break;
-                case 6: // Make a transfer
-                    if (savingsAccounts.isEmpty() && businessAccounts.isEmpty()) {
-                        System.out.println("There are no accounts in the system.");
-                    } else {
-                        System.out.println();
-                        makeTransfer(savingsAccounts, businessAccounts);
-                    }
-                    System.out.println();
-                    break;
-                case 7: // Apply interest to a savings account
-                    if (savingsAccounts.isEmpty()) {
-                        System.out.println("There are no savings accounts in the system.");
-                    } else {
-                        System.out.println();
-                        applyInterest(savingsAccounts);
-                    }
-                    System.out.println();
-                    break;
-                case 8: // Query business account transfer history
-                    if (businessAccounts.isEmpty()) {
-                        System.out.println("There are no business accounts in the system.");
-                    } else {
-                        System.out.println();
-                        queryBusinessAccountTransferHistory(businessAccounts);
-                    }
-                    System.out.println();
-                    break;
-                case 9: // Exit system
-                    systemActive = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again with a number from 1 to 9.");
+                case 1 -> createSavingsAccount(savingsAccounts);
+                case 2 -> createBusinessAccount(businessAccounts);
+                case 3 -> listAccounts(savingsAccounts, businessAccounts);
+                case 4 -> makeDeposit(savingsAccounts, businessAccounts);
+                case 5 -> makeWithdrawal(savingsAccounts, businessAccounts);
+                case 6 -> makeTransfer(savingsAccounts, businessAccounts);
+                case 7 -> applyInterest(savingsAccounts);
+                case 8 -> queryBusinessAccountTransferHistory(businessAccounts);
+                case 9 -> systemActive = false;
+                default -> System.out.println("Invalid option. Please try again with a number from 1 to 9.");
             }
         } while (systemActive);
-
     }
 
+    /**
+     * Prints the options menu
+     */
     private static void printMenu() {
-        System.out.println("###############");
-        System.out.println("+ Bank System +");
-        System.out.println("###############");
-
+        System.out.println("###############\n+ Bank System +\n###############");
         System.out.println("\nOptions:");
         System.out.println("1. Create a new savings account");
         System.out.println("2. Create a new business account");
@@ -133,20 +64,48 @@ public class Main {
     }
 
     /**
-     * Lists all of the accounts in the system
+     * Creates a new savings account
+     * @param savingsAccounts The savings accounts
+     */
+    private static void createSavingsAccount(List<SavingsAccount> savingsAccounts) {
+        // Asks for user input
+        String name = inputString("Enter the owner name: ");
+        double balance = inputDouble("Enter the balance: ");
+
+        // Creates the account and saves it in the collection
+        SavingsAccount account = new SavingsAccount(generateRandomId(), name, balance);
+        savingsAccounts.add(account);
+
+        account.printDetails(); // Prints the account details
+    }
+
+    /**
+     * Creates a new business account
+     * @param businessAccounts The business account list
+     */
+    private static void createBusinessAccount(List<BusinessAccount> businessAccounts) {
+        // Asks for user input
+        String name = inputString("Enter the owner name: ");
+        double balance = inputDouble("Enter the balance: ");
+
+        // Creates the account and saves it in the collection
+        BusinessAccount account = new BusinessAccount(generateRandomId(), name, balance);
+        businessAccounts.add(account);
+
+        account.printDetails(); // Prints the account details
+    }
+
+    /**
+     * Lists all the accounts in the system
      * @param savingsAccounts The saving accounts
      * @param businessAccounts The business accounts
      */
     private static void listAccounts(List<SavingsAccount> savingsAccounts, List<BusinessAccount> businessAccounts) {
-        if (!savingsAccounts.isEmpty()) {
-            for (SavingsAccount account : savingsAccounts) {
-                account.printDetails();
-            }
+        for (SavingsAccount account : savingsAccounts) {
+            account.printDetails();
         }
-       if (!businessAccounts.isEmpty()) {
-           for (BusinessAccount account : businessAccounts) {
-               account.printDetails();
-           }
+       for (BusinessAccount account : businessAccounts) {
+           account.printDetails();
        }
     }
 
@@ -159,7 +118,7 @@ public class Main {
         Account account = selectAccountForOperation(savingsAccounts, businessAccounts);
         if (account != null) {
             double amount = inputDouble("Enter the deposit amount: ");
-            account.deposit(amount, Currency.EUR);
+            account.deposit(amount);
         } else {
             System.out.println("No account with the specified ID exists.");
         }
@@ -174,7 +133,7 @@ public class Main {
         Account account = selectAccountForOperation(savingsAccounts, businessAccounts);
         if (account != null) {
             double amount = inputDouble("Enter the withdrawal amount: ");
-            account.withdraw(amount, Currency.EUR);
+            account.withdraw(amount);
         } else {
             System.out.println("No account with the specified ID exists.");
         }
@@ -191,7 +150,7 @@ public class Main {
             Account toAccount = selectAccountForOperation(savingsAccounts, businessAccounts);
             if (toAccount != null) {
                 double amount = inputDouble("Enter the transfer amount: ");
-                fromAccount.transfer(amount, Currency.EUR, toAccount);
+                fromAccount.transfer(amount, toAccount);
             } else {
                 System.out.println("No account with the specified ID exists.");
             }
@@ -206,11 +165,7 @@ public class Main {
      */
     private static void applyInterest(List<SavingsAccount> savingsAccounts) {
         SavingsAccount account = selectSavingsAccountForOperation(savingsAccounts);
-        if (account != null) {
-            account.applyInterest();
-        } else {
-            System.out.println("No account with the specified ID exists.");
-        }
+        if (account != null) account.applyInterest(); else System.out.println("No account with the specified ID exists.");
     }
 
     /**
@@ -219,11 +174,7 @@ public class Main {
      */
     private static void queryBusinessAccountTransferHistory(List<BusinessAccount> businessAccounts) {
         BusinessAccount account = selectBusinessAccountForOperation(businessAccounts);
-        if (account != null) {
-            account.printTransferHistory();
-        } else {
-            System.out.println("No account with the specified ID exists.");
-        }
+        if (account != null) account.printTransferHistory(); else System.out.println("No account with the specified ID exists.");
     }
 
     /**
@@ -234,7 +185,7 @@ public class Main {
      */
     private static Account selectAccountForOperation(List<SavingsAccount> savingsAccounts, List<BusinessAccount> businessAccounts) {
         listAccounts(savingsAccounts, businessAccounts);
-        int accountId = inputInt("Enter the account ID to perform the operation: ");
+        int accountId = inputInt("Enter the account ID: ");
         for (SavingsAccount account : savingsAccounts) {
             if (account.getId() == accountId) {
                 return account;
@@ -255,7 +206,7 @@ public class Main {
      */
     private static SavingsAccount selectSavingsAccountForOperation(List<SavingsAccount> savingsAccounts) {
         listAccounts(savingsAccounts, new ArrayList<>());
-        int accountId = inputInt("Enter the account ID to perform the operation: ");
+        int accountId = inputInt("Enter the account ID: ");
         for (SavingsAccount account : savingsAccounts) {
             if (account.getId() == accountId) {
                 return account;
@@ -271,7 +222,7 @@ public class Main {
      */
     private static BusinessAccount selectBusinessAccountForOperation(List<BusinessAccount> businessAccounts) {
         listAccounts(new ArrayList<>(), businessAccounts);
-        int accountId = inputInt("Enter the account ID to perform the operation: ");
+        int accountId = inputInt("Enter the account ID: ");
         for (BusinessAccount account : businessAccounts) {
             if (account.getId() == accountId) {
                 return account;
